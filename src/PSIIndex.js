@@ -53,7 +53,7 @@ export default{
     
     },
      mounted(){
-        //console.log('Do I come here')
+        // console.log('Do I come here')
         this.fetchData()
         
      }

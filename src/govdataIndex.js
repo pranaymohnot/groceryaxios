@@ -10,7 +10,7 @@ export default{
           labels:[],
           datasets: [
             {
-              label: 'Bitcoin price in USD',
+              label: 'Singapore Transport',
                data:[],
               //backgroundColor:['aqua','lightgreen','red','orange'],
               borderWidth:0.5,
@@ -29,16 +29,18 @@ export default{
     methods:{
     
     fetchData : function(){
-        axios.get('https://api.coindesk.com/v1/bpi/historical/close.json').then(response=>{
-        this.results=response.data.bpi
-        
-        for(let key in this.results){
-            this.chartdata.datasets[0].data.push(this.results[key])
-            this.chartdata.labels.push(key+'')
+        axios.get('https://data.gov.sg/api/action/datastore_search?resource_id=552b8662-3cbc-48c0-9fbb-abdc07fb377a').then(response=>{
+        this.results=response.data.result.records
+
+        this.results.forEach(item => {
+            this.chartdata.datasets[0].data.push(item.average_ridership)
+            this.chartdata.labels.push(item.year)
             
-        }
+        })
         this.renderChart(this.chartdata,this.options)
-        console.log(this.chartdata) 
+        // console.log(this.results)
+        // console.log(this.chartdata.datasets)
+            
     })
     
     }
